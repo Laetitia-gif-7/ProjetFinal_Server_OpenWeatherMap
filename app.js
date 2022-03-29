@@ -2,7 +2,6 @@ const express = require('express')
 const https = require('https')
 const app = express()
 const request = require('request')
-const PORT = 1984;
 const mongoose = require('mongoose')
 const cron = require('node-cron')
 const cors = require('cors');
@@ -11,7 +10,9 @@ const url= process.env.URL_MONGO || urlocal;
 const bodyParser = require('body-parser');
 const Weather = require("./weather");
 const { response } = require('./app');
-
+const MONGO_URL = process.env.MONGO_URL;
+require('dotenv').config({path:"./.env"})
+const PORT = process.env.PORT
 
 
 
@@ -24,7 +25,7 @@ app.get('/', (req, res) => {
 app.listen(PORT);
 
 //connection à MongoDB
-mongoose.connect("mongodb+srv://laetitia:laetitia@aerodataboxproject4.ezdkr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+mongoose.connect(MONGO_URL,
  {   //pour recuperer le 1er paramètre, aller sur mongodb, cliquer sur connect > connect your application
      useNewUrlParser: true, useUnifiedTopology:true
     }).then(()=>{
